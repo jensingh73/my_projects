@@ -11,7 +11,6 @@
   padding: 8px;
   color: #333;
 }
-
 h1 {
   color: #005a9c;
 }
@@ -52,7 +51,7 @@ input, select {
         }
         input, select {
             width: 20%;
-            padding: 4px;
+            padding: 2px;
             margin: 1px 0;
             box-sizing: border-box;
             border: 1px solid #ccc;
@@ -63,7 +62,7 @@ input, select {
         }
         #drivingQuestion, #drivingDetails {
             background-color: #6B838F;
-            padding: 8px;
+            padding: 2px;
             border-radius: 6px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 1px;
@@ -91,7 +90,6 @@ input, select {
             var flightRequired = document.getElementById('flightRequired').value;
             var flightQuestions = document.getElementById('flightQuestions');
             var drivingQuestion = document.getElementById('drivingQuestion');
-
             if (flightRequired === 'yes') {
                 flightQuestions.style.display = 'block';
                 drivingQuestion.style.display = 'none';
@@ -104,18 +102,15 @@ input, select {
                 drivingQuestion.style.display = 'none';
             }
         }
-
         function showDriveTimeQuestion() {
             var driveToAirport = document.getElementById('driveToAirport').value;
             var driveTimeToAirport = document.getElementById('driveTimeToAirport');
             var driveTimeFromAirport = document.getElementById('driveTimeFromAirport');
-
             if (driveToAirport === 'yes') {
                 driveTimeToAirport.style.display = 'block';
             } else {
                 driveTimeToAirport.style.display = 'none';
             }
-
             var driveFromAirport = document.getElementById('driveFromAirport').value;
             if (driveFromAirport === 'yes') {
                 driveTimeFromAirport.style.display = 'block';
@@ -123,12 +118,10 @@ input, select {
                 driveTimeFromAirport.style.display = 'none';
             }
         }
-
         function showItineraryQuestions() {
             var driveFromAirport = document.getElementById('driveFromAirport').value;
             var itineraryToEngagement = document.getElementById('itineraryToEngagement');
             var itineraryFromVenue = document.getElementById('itineraryFromVenue');
-
             if (driveFromAirport !== '') {
                 itineraryToEngagement.style.display = 'block';
                 itineraryFromVenue.style.display = 'block';
@@ -137,32 +130,26 @@ input, select {
                 itineraryFromVenue.style.display = 'none';
             }
         }
-
         function calculateAdditionalTime() {
             var flightType = document.getElementById('flightType').value;
             var additionalTime = 0;
-
             if (flightType === 'domestic') {
                 additionalTime = 2;
             } else if (flightType === 'international') {
                 additionalTime = 3;
             }
-
             var driveToAirport = document.getElementById('driveToAirport').value;
             if (driveToAirport === 'yes') {
                 var driveTimeToAirport = parseFloat(document.getElementById('driveTimeToAirportInput').value) || 0;
                 additionalTime += driveTimeToAirport;
             }
-
             var driveFromAirport = document.getElementById('driveFromAirport').value;
             if (driveFromAirport === 'yes') {
                 var driveTimeFromAirport = parseFloat(document.getElementById('driveTimeFromAirportInput').value) || 0;
                 additionalTime += driveTimeFromAirport;
             }
-
             var itineraryToEngagement = parseFloat(document.getElementById('itineraryToEngagementInput').value) || 0;
             additionalTime += itineraryToEngagement;
-
             var itineraryFromVenue = parseFloat(document.getElementById('itineraryFromVenueInput').value) || 0;
             additionalTime += itineraryFromVenue;
 
@@ -179,7 +166,6 @@ input, select {
             <option value="yes">Yes</option>
             <option value="no">No</option>
         </select><br><br>
-
         <div id="flightQuestions" style="display:none;">
             <label for="flightType">Domestic or International Flight?</label><br>
             <select id="flightType" name="flightType" onchange="calculateAdditionalTime()">
@@ -187,41 +173,34 @@ input, select {
                 <option value="domestic">Domestic</option>
                 <option value="international">International</option>
             </select><br><br>
-
             <label for="driveToAirport">Drive Time to the Airport?</label><br>
             <select id="driveToAirport" name="driveToAirport" onchange="showDriveTimeQuestion()">
                 <option value="">Select...</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
             </select><br><br>
-
             <div id="driveTimeToAirport" style="display:none;">
                 <label for="driveTimeToAirportInput">Drive Time from Home to Airport (Mapquest Hours):</label><br>
                 <input type="number" id="driveTimeToAirportInput" name="driveTimeToAirportInput" step="0.1" onchange="calculateAdditionalTime()"><br><br>
             </div>
-
             <label for="driveFromAirport">Drive Time from the Airport?</label><br>
             <select id="driveFromAirport" name="driveFromAirport" onchange="showDriveTimeQuestion(); showItineraryQuestions()">
                 <option value="">Select...</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
             </select><br><br>
-
             <div id="driveTimeFromAirport" style="display:none;">
                 <label for="driveTimeFromAirportInput">Drive Time from Airport to Home (Mapquest Hours):</label><br>
                 <input type="number" id="driveTimeFromAirportInput" name="driveTimeFromAirportInput" step="0.1" onchange="calculateAdditionalTime()"><br><br>
             </div>
-
             <div id="itineraryToEngagement" style="display:none;">
                 <label for="itineraryToEngagementInput">Flight Itinerary Time to the Engagement (Total Itinerary Hours):</label><br>
                 <input type="number" id="itineraryToEngagementInput" name="itineraryToEngagementInput" step="0.1" onchange="calculateAdditionalTime()"><br><br>
             </div>
-
             <div id="itineraryFromVenue" style="display:none;">
                 <label for="itineraryFromVenueInput">Flight Itinerary Time Home from the Venue (Total Itinerary Hours):</label><br>
                 <input type="number" id="itineraryFromVenueInput" name="itineraryFromVenueInput" step="0.1" onchange="calculateAdditionalTime()"><br><br>
             </div>
-
             <p id="additionalTime"></p>
         </div>
 <div id="drivingQuestion" style="display:none;">
@@ -232,37 +211,28 @@ input, select {
         <option value="no">No</option>
     </select><br><br>
 </div>
-
 <div id="drivingDetails" style="display:none;">
     <label for="meetingAddress">Meeting Address:</label><br>
     <input type="text" id="meetingAddress" name="meetingAddress"><br><br>
-
     <label for="meetingCity">Meeting City:</label><br>
     <input type="text" id="meetingCity" name="meetingCity"><br><br>
-
     <label for="meetingState">Meeting State (if US):</label><br>
     <input type="text" id="meetingState" name="meetingState"><br><br>
-
     <label for="meetingCountry">Meeting Country:</label><br>
     <input type="text" id="meetingCountry" name="meetingCountry"><br><br>
-
     <label for="driveTimeToMeeting">Drive Time from Home to the Meeting (Mapquest Hours):</label><br>
     <input type="number" id="driveTimeToMeeting" name="driveTimeToMeeting" oninput="calculateTotalDriveTime()"><br><br>
-
     <label for="driveTimeFromMeeting">Drive Time from the Meeting to Home (Mapquest Hours):</label><br>
     <input type="number" id="driveTimeFromMeeting" name="driveTimeFromMeeting" oninput="calculateTotalDriveTime()"><br><br>
-
     <label for="totalDriveTime">Total Drive Time (Hours):</label><br>
     <input type="number" id="totalDriveTime" name="totalDriveTime" readonly><br><br>
 </div>
-
 <script>
 function toggleDrivingDetails() {
     var flightRequired = document.getElementById("flightRequired").value;
     var drivingRequired = document.getElementById("drivingRequired").value;
     var drivingQuestion = document.getElementById("drivingQuestion");
     var drivingDetails = document.getElementById("drivingDetails");
-
     if (flightRequired === 'yes') {
         drivingQuestion.style.display = 'none';
         drivingDetails.style.display = 'none';
@@ -278,7 +248,6 @@ function toggleDrivingDetails() {
         drivingDetails.style.display = 'none';
     }
 }
-
 function calculateTotalDriveTime() {
     var driveTimeToMeeting = parseFloat(document.getElementById("driveTimeToMeeting").value) || 0;
     var driveTimeFromMeeting = parseFloat(document.getElementById("driveTimeFromMeeting").value) || 0;
@@ -290,6 +259,5 @@ function calculateTotalDriveTime() {
     <script src="js/scripts.js"></script>
 </body>
 </html>
-
 </body>
 </html>
