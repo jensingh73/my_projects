@@ -1,84 +1,133 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Travel Time Calculator</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-    }
-    input, select {
-      margin-top: 5px;
-      margin-bottom: 10px;
-    }
-    .hidden {
-      display: none;
-    }
-  </style>
+  
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+  color: #333;
+}
+
+h1 {
+  color: #005a9c;
+}
+
+label {
+  display: block;
+  margin-top: 2px; /* further reduced spacing between fields */
+  font-weight: bold;
+}
+
+input, select {
+  width: 100%;
+  padding: 4px; /* slightly smaller padding */
+  margin-top: 1px; /* minimal space between label and input */
+  box-sizing: border-box;
+}
+</style>
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+  color: #333;
+}
+
+h1 {
+  color: #005a9c;
+}
+
+label {
+  display: block;
+  margin-top: 6px; /* tighter spacing between fields */
+  font-weight: bold;
+}
+
+input, select {
+  width: 100%;
+  padding: 5px; /* slightly smaller padding */
+  margin-top: 2px; /* minimal space between label and input */
+  box-sizing: border-box;
+}
+</style>
+
 </head>
 <body>
   <h1>Travel Time Calculator</h1>
 
-  <label for="flightRequired">Is a flight required?</label>
-  <select id="flightRequired" onchange="toggleDrivingDetails()">
-    <option value="yes">Yes</option>
-    <option value="no">No</option>
+  <label>Flight Required?</label>
+  <select>
+    <option>Select...</option>
+    <option>Yes</option>
+    <option>No</option>
   </select>
 
-  <div id="drivingDetails" class="hidden">
-    <label for="driveTimeToAirportInput">Drive time to airport (hours):</label>
-    <input type="number" id="driveTimeToAirportInput" value="0">
+  <label>Domestic or International Flight?</label>
+  <select>
+    <option>Select...</option>
+    <option>Domestic</option>
+    <option>International</option>
+  </select>
 
-    <label for="driveTimeFromAirportInput">Drive time from airport (hours):</label>
-    <input type="number" id="driveTimeFromAirportInput" value="0">
+  <label>Drive Time to the Airport?</label>
+  <select>
+    <option>Select...</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
 
-    <label for="flightTimeInput">Flight time (hours):</label>
-    <input type="number" id="flightTimeInput" value="0">
+  <label>Drive Time from Home to Airport (Mapquest Hours):</label>
+  <input type="text">
 
-    <label for="itineraryTimeInput">Itinerary time (hours):</label>
-    <input type="number" id="itineraryTimeInput" value="0">
-  </div>
+  <label>Drive Time from the Airport?</label>
+  <select>
+    <option>Select...</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
 
-  <label for="driveTimeInput">Drive time (hours):</label>
-  <input type="number" id="driveTimeInput" value="0">
+  <label>Drive Time from Airport to Home (Mapquest Hours):</label>
+  <input type="text">
 
-  <button onclick="calculateAdditionalTime()">Calculate Total Travel Time</button>
-  <p id="additionalTime"></p>
+  <label>Flight Itinerary Time to the Engagement (Total Itinerary Hours):</label>
+  <input type="text">
 
-  <script>
-    function toggleDrivingDetails() {
-      var flightRequired = document.getElementById('flightRequired').value;
-      var drivingDetails = document.getElementById('drivingDetails');
-      if (flightRequired === 'yes') {
-        drivingDetails.classList.remove('hidden');
-      } else {
-        drivingDetails.classList.add('hidden');
-      }
-    }
+  <label>Flight Itinerary Time Home from the Venue (Total Itinerary Hours):</label>
+  <input type="text">
 
-    function calculateAdditionalTime() {
-      var flightRequired = document.getElementById('flightRequired').value;
-      var driveTime = parseFloat(document.getElementById('driveTimeInput').value) || 0;
-      var totalTravelTime = driveTime;
+  <label>Driving Required?</label>
+  <select>
+    <option>Select...</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
 
-      if (flightRequired === 'yes') {
-        var driveTimeToAirport = parseFloat(document.getElementById('driveTimeToAirportInput').value) || 0;
-        var driveTimeFromAirport = parseFloat(document.getElementById('driveTimeFromAirportInput').value) || 0;
-        var flightTime = parseFloat(document.getElementById('flightTimeInput').value) || 0;
-        var itineraryTime = parseFloat(document.getElementById('itineraryTimeInput').value) || 0;
+  <label>Meeting Address:</label>
+  <input type="text">
 
-        totalTravelTime += driveTimeToAirport + driveTimeFromAirport + flightTime + itineraryTime;
-      }
+  <label>Meeting City:</label>
+  <input type="text">
 
-      document.getElementById('additionalTime').innerText = 'Total Travel Time: ' + totalTravelTime + ' hours';
-    }
-  </script>
+  <label>Meeting State (if US):</label>
+  <input type="text">
+
+  <label>Meeting Country:</label>
+  <input type="text">
+
+  <label>Drive Time from Home to the Meeting (Mapquest Hours):</label>
+  <input type="text">
+
+  <label>Drive Time from the Meeting to Home (Mapquest Hours):</label>
+  <input type="text">
+
+  <label>Total Drive Time (Hours):</label>
+  <input type="text">
 </body>
 </html>
 
