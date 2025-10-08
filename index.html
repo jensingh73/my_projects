@@ -69,6 +69,7 @@
     <input type="number" id="numDays" placeholder="Enter number of days">
     <button onclick="createTravelDays()">Submit</button>
 
+
     <div id="travelDaysContainer"></div>
 
     <script>
@@ -111,25 +112,38 @@
                                 <option value="international">International</option>
                             </select>
                             <br>
-                            <label>Travel Time to the Airport (Mapquest Hours):</label>
-                            <input type="number" id="travelTimeToAirport${i}" onchange="calculateTotalTravelTime(${i})">
-                            <br>
-                            <label>Flight Itinerary Time (Total Itinerary Hours):</label>
-                            <input type="number" id="flightItineraryTime${i}" onchange="calculateTotalTravelTime(${i})">
-                            <br>
-                            <label>Travel Time from Airport to Destination (Mapquest Hours):</label>
-                            <input type="number" id="travelTimeFromAirport${i}" onchange="calculateTotalTravelTime(${i})">
-                            <br>
-                            <div id="returnTravelOptions${i}" style="display:none;">
-                                <label>Return Travel Time to the Airport (Mapquest Hours):</label>
-                                <input type="number" id="returnTravelTimeToAirport${i}" onchange="calculateTotalTravelTime(${i})">
-                                <br>
-                                <label>Return Flight Itinerary Time (Total Itinerary Hours):</label>
-                                <input type="number" id="returnFlightItineraryTime${i}" onchange="calculateTotalTravelTime(${i})">
-                                <br>
-                                <label>Return Travel Time from Airport to Home (Mapquest Hours):</label>
-                                <input type="number" id="returnTravelTimeFromAirport${i}" onchange="calculateTotalTravelTime(${i})">
-                            </div>
+                            
+<label>Travel Time to the Airport (Mapquest Hours):</label>
+<input type="number" id="travelTimeToAirportHours${i}" placeholder="Hours" min="0" onchange="calculateTotalTravelTime(${i})">
+<input type="number" id="travelTimeToAirportMinutes${i}" placeholder="Minutes" min="0" max="59" onchange="calculateTotalTravelTime(${i})">
+<br>
+
+<label>Flight Itinerary Time (Total Itinerary Hours):</label>
+<input type="number" id="flightItineraryTimeHours${i}" placeholder="Hours" min="0" onchange="calculateTotalTravelTime(${i})">
+<input type="number" id="flightItineraryTimeMinutes${i}" placeholder="Minutes" min="0" max="59" onchange="calculateTotalTravelTime(${i})">
+<br>
+
+<label>Travel Time from Airport to Destination (Mapquest Hours):</label>
+<input type="number" id="travelTimeFromAirportHours${i}" placeholder="Hours" min="0" onchange="calculateTotalTravelTime(${i})">
+<input type="number" id="travelTimeFromAirportMinutes${i}" placeholder="Minutes" min="0" max="59" onchange="calculateTotalTravelTime(${i})">
+<br>
+
+<div id="returnTravelOptions${i}" style="display:none;">
+    <label>Return Travel Time to the Airport (Mapquest Hours):</label>
+    <input type="number" id="returnTravelTimeToAirportHours${i}" placeholder="Hours" min="0" onchange="calculateTotalTravelTime(${i})">
+    <input type="number" id="returnTravelTimeToAirportMinutes${i}" placeholder="Minutes" min="0" max="59" onchange="calculateTotalTravelTime(${i})">
+    <br>
+
+    <label>Return Flight Itinerary Time (Total Itinerary Hours):</label>
+    <input type="number" id="returnFlightItineraryTimeHours${i}" placeholder="Hours" min="0" onchange="calculateTotalTravelTime(${i})">
+    <input type="number" id="returnFlightItineraryTimeMinutes${i}" placeholder="Minutes" min="0" max="59" onchange="calculateTotalTravelTime(${i})">
+    <br>
+
+    <label>Return Travel Time from Airport to Home (Mapquest Hours):</label>
+    <input type="number" id="returnTravelTimeFromAirportHours${i}" placeholder="Hours" min="0" onchange="calculateTotalTravelTime(${i})">
+    <input type="number" id="returnTravelTimeFromAirportMinutes${i}" placeholder="Minutes" min="0" max="59" onchange="calculateTotalTravelTime(${i})">
+</div>
+
                         </div>
                     </div>
                     <div id="noFlightOptions${i}" style="display:none;">
@@ -144,18 +158,20 @@
                         <br>
                         <label>Meeting Country:</label>
                         <input type="text" id="meetingCountry${i}">
-                        <br>
-                        <label>Travel Time to Destination (Mapquest Hours):</label>
-                        <input type="number" id="travelTimeToDestination${i}" onchange="calculateTotalTravelTime(${i})">
-                        <br>
-                        <label>Travel Time from Destination (Mapquest Hours):</label>
-                        <input type="number" id="travelTimeFromDestination${i}" onchange="calculateTotalTravelTime(${i})">
-                    </div>
+<br>
+<label>Travel Time to Destination (Mapquest Hours):</label>
+<input type="number" id="travelTimeToDestinationHours${i}" placeholder="Hours"min="0" onchange="calculateTotalTravelTime(${i})">
+<input type="number" id="travelTimeToDestinationMinutes${i}" placeholder="Minutes"min="0" max="59" onchange="calculateTotalTravelTime(${i})">
+ <br>
+ <label>Travel Time from Destination (Mapquest Hours):</label>
+ <input type="number" id="travelTimeFromDestinationHours${i}" placeholder="Hours"min="0" onchange="calculateTotalTravelTime(${i})">
+ <input type="number" id="travelTimeFromDestinationMinutes${i}" placeholder="Minutes"min="0" max "59" onchange="calculateTotalTravelTime(${i})">
+              </div>
                     <h3>Total Day ${i} Travel Time: <span id="totalTravelTime${i}">0</span> hours</h3>
                 `;
                 container.appendChild(dayDiv);
             }
-        }
+      }
 
         function toggleFlightOptions(day) {
             const flightRequired = document.getElementById(`flightRequired${day}`).value;
@@ -186,44 +202,57 @@
             }
             calculateTotalTravelTime(day);
         }
+function calculateTotalTravelTime(day) {
+    // Helper function to convert hours and minutes to decimal hours
+    function getTime(hoursId, minutesId) {
+        const hours = parseFloat(document.getElementById(hoursId)?.value) || 0;
+        const minutes = parseFloat(document.getElementById(minutesId)?.value) || 0;
+        return hours + (minutes / 60);
+    }
 
-        function calculateTotalTravelTime(day) {
-            const flightRequired = document.getElementById(`flightRequired${day}`).value;
-            let totalTravelTime = 0;
+    const flightRequired = document.getElementById(`flightRequired${day}`).value;
+    let totalTravelTime = 0;
 
-            if (flightRequired === 'yes') {
-                const roundTrip = document.getElementById(`roundTrip${day}`).value;
-                const domInt = document.getElementById(`domInt${day}`).value;
-                const travelTimeToAirport = parseFloat(document.getElementById(`travelTimeToAirport${day}`).value) || 0;
-                const flightItineraryTime = parseFloat(document.getElementById(`flightItineraryTime${day}`).value) || 0;
-                const travelTimeFromAirport = parseFloat(document.getElementById(`travelTimeFromAirport${day}`).value) || 0;
+    if (flightRequired === 'yes') {
+        const roundTrip = document.getElementById(`roundTrip${day}`).value;
+        const domInt = document.getElementById(`domInt${day}`).value;
 
-                let additionalTime = 0;
-                if (domInt === 'domestic') {
-                    additionalTime = 2;
-                } else if (domInt === 'international') {
-                    additionalTime = 3;
-                }
-
-                totalTravelTime = travelTimeToAirport + flightItineraryTime + travelTimeFromAirport + additionalTime;
-
-                if (roundTrip === 'yes') {
-                    const returnTravelTimeToAirport = parseFloat(document.getElementById(`returnTravelTimeToAirport${day}`).value) || 0;
-                    const returnFlightItineraryTime = parseFloat(document.getElementById(`returnFlightItineraryTime${day}`).value) || 0;
-                    const returnTravelTimeFromAirport = parseFloat(document.getElementById(`returnTravelTimeFromAirport${day}`).value) || 0;
-
-                    totalTravelTime += returnTravelTimeToAirport + returnFlightItineraryTime + returnTravelTimeFromAirport + additionalTime;
-                }
-            } else {
-                const travelTimeToDestination = parseFloat(document.getElementById(`travelTimeToDestination${day}`).value) || 0;
-                const travelTimeFromDestination = parseFloat(document.getElementById(`travelTimeFromDestination${day}`).value) || 0;
-
-                totalTravelTime = travelTimeToDestination + travelTimeFromDestination;
-            }
-
-            document.getElementById(`totalTravelTime${day}`).innerText = totalTravelTime;
+        let additionalTime = 0;
+        if (domInt === 'domestic') {
+            additionalTime = 2;
+        } else if (domInt === 'international') {
+            additionalTime = 3;
         }
+
+        // Outbound
+        const travelTimeToAirport = getTime(`travelTimeToAirportHours${day}`, `travelTimeToAirportMinutes${day}`);
+        const flightItineraryTime = getTime(`flightItineraryTimeHours${day}`, `flightItineraryTimeMinutes${day}`);
+        const travelTimeFromAirport = getTime(`travelTimeFromAirportHours${day}`, `travelTimeFromAirportMinutes${day}`);
+
+        totalTravelTime = travelTimeToAirport + flightItineraryTime + travelTimeFromAirport + additionalTime;
+
+        // Return trip (if applicable)
+        if (roundTrip === 'yes') {
+            const returnTravelTimeToAirport = getTime(`returnTravelTimeToAirportHours${day}`, `returnTravelTimeToAirportMinutes${day}`);
+            const returnFlightItineraryTime = getTime(`returnFlightItineraryTimeHours${day}`, `returnFlightItineraryTimeMinutes${day}`);
+            const returnTravelTimeFromAirport = getTime(`returnTravelTimeFromAirportHours${day}`, `returnTravelTimeFromAirportMinutes${day}`);
+
+            totalTravelTime += returnTravelTimeToAirport + returnFlightItineraryTime + returnTravelTimeFromAirport + additionalTime;
+        }
+    } else {
+        // Driving only
+        const travelTimeToDestination = getTime(`travelTimeToDestinationHours${day}`, `travelTimeToDestinationMinutes${day}`);
+        const travelTimeFromDestination = getTime(`travelTimeFromDestinationHours${day}`, `travelTimeFromDestinationMinutes${day}`);
+
+        totalTravelTime = travelTimeToDestination + travelTimeFromDestination;
+    }
+
+    // Show result as decimal hours (e.g., 1.5 for 1 hour 30 minutes)
+    document.getElementById(`totalTravelTime${day}`).innerText = totalTravelTime.toFixed(2);
+    
+}
     </script>
 </body>
 </html>
+
 
